@@ -16,7 +16,7 @@ public class Bank
 {
     private String name;
     //HashMap<String, BankAccount> bankAccounts;// = new HashMap<String, Account>();
-    public ArrayList<BankAccount> bankAccounts = new ArrayList<BankAccount>();
+    public ArrayList<CheckingAccount> bankAccounts = new ArrayList<CheckingAccount>();
 
     public Bank()
     {
@@ -30,7 +30,7 @@ public class Bank
     public void addBankAccount(LocalDateTime createdDate, String name, double balance)
 
     {
-        bankAccounts.add(0, new BankAccount(createdDate, name, balance));
+        bankAccounts.add(0, new CheckingAccount(createdDate, name, balance));
         //System.out.println("Please enter the name of the bank account you want to create:");
         //String input = scan.nextLine();
         //System.out.println("Please enter the starting account balance of the bank account:");

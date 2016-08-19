@@ -7,7 +7,7 @@ import java.util.Scanner;
 /**
  * Created by jfabiano on 8/15/2016.
  */
-public class Assignment6Runner
+public class WeekendAssignment2Runner
 {
     public static void main(String[] args)
     {

@@ -5,19 +5,19 @@ import java.time.LocalDateTime;
 /**
  * Created by jfabiano on 8/15/2016.
  */
-public class BankAccount
+public class CheckingAccount
 {
     private double balance = 0.00;
     private String name = "";
     //private createdDate;
     private LocalDateTime createdDate; //= LocalDateTime.now();
     private LocalDateTime lastTransactionDate;
-    public BankAccount()
+    public CheckingAccount()
     {
 
     }
 
-    public BankAccount(LocalDateTime createdDate, String name, double balance)
+    public CheckingAccount(LocalDateTime createdDate, String name, double balance)
     {
         this.createdDate = createdDate;
         this.name = name;
