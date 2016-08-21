@@ -16,7 +16,8 @@ public class Bank
 {
     private String name;
     //HashMap<String, BankAccount> bankAccounts;// = new HashMap<String, Account>();
-    public ArrayList<CheckingAccount> bankAccounts = new ArrayList<CheckingAccount>();
+    //public ArrayList<CheckingAccount> bankAccounts = new ArrayList<CheckingAccount>();
+    private ArrayList<Customer> customerList = new ArrayList<Customer>();
 
     public Bank()
     {
@@ -24,23 +25,17 @@ public class Bank
     }
     public Bank(String name)
     {
+
         this.name = name;
+
     }
 
-    public void addBankAccount(LocalDateTime createdDate, String name, double balance)
+    //public void addBankAccount(LocalDateTime createdDate, String name, double balance)
 
-    {
-        bankAccounts.add(0, new CheckingAccount(createdDate, name, balance));
-        //System.out.println("Please enter the name of the bank account you want to create:");
-        //String input = scan.nextLine();
-        //System.out.println("Please enter the starting account balance of the bank account:");
-        //double dInput = Double.valueOf(scan.nextLine());
-        //The localDateTime gather
-        //LocalDateTime now = LocalDateTime.now();
-        //System.out.println("The account has been created.");
-        //BankAccount myAccount = new BankAccount(now, input, dInput);
-        //System.out.println("The account has been created.");
-    }
+    //{
+        //bankAccounts.add(0, new CheckingAccount(createdDate, name, balance));
+
+    //}
     public String printInfo()
     {
 
@@ -50,10 +45,13 @@ public class Bank
     public double getTotalInDeposits()
     {
         double totalMoney = 0.0;
-        for(int bankIndex = 0; bankIndex < bankAccounts.size(); bankIndex++)
+
+        for(int custIndex = 0; custIndex < customerList.size(); custIndex++)
         {
-            totalMoney += bankAccounts.get(bankIndex).getBalance();
-            //return totalMoney;
+            for(int accountIndex = 0; accountIndex < customerList.get(custIndex).getBankAccounts().size(); accountIndex++)
+            {
+                totalMoney += customerList.get(custIndex).getBankAccounts().get(accountIndex).getBalance();
+            }
         }
         return totalMoney;
     }

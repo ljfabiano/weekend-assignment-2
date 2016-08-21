@@ -5,5 +5,5 @@ package com.tiy.practice;
  */
 public interface Interest
 {
-    
+
 }

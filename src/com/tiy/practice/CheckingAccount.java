@@ -1,5 +1,7 @@
 package com.tiy.practice;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.time.LocalDateTime;
 
 /**
@@ -9,7 +11,6 @@ public class CheckingAccount
 {
     private double balance = 0.00;
     private String name = "";
-    //private createdDate;
     private LocalDateTime createdDate; //= LocalDateTime.now();
     private LocalDateTime lastTransactionDate;
     public CheckingAccount()
@@ -46,5 +47,6 @@ public class CheckingAccount
         LocalDateTime now = LocalDateTime.now();
         lastTransactionDate = now;
     }
+
 
 }
