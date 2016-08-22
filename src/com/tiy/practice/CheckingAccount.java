@@ -17,6 +17,14 @@ public class CheckingAccount
     {
 
     }
+    public CheckingAccount(String name, double balance)
+    {
+        //this.createdDate = createdDate;
+        this.name = name;
+        //this.lastTransactionDate = createdDate;
+        this.balance = balance;
+
+    }
 
     public CheckingAccount(LocalDateTime createdDate, String name, double balance)
     {

@@ -31,7 +31,7 @@ public class WeekendAssignment2Runner
         }
         else
         {
-            System.out.println("Please create an initial account:");
+            System.out.println("you don't have an account with us yet. Please create an initial account:");
             myRunner.addAccount(bankScanner);
         }
 
@@ -43,7 +43,7 @@ public class WeekendAssignment2Runner
             try {
                 File testFile = new File("src/com/tiy/practice/bank.txt");//read my source code noobs.txt to read the actually written file
                 Scanner fileScanner = new Scanner(testFile);
-                String[] brokenString = input.split(",");
+                String[] brokenString = fileScanner.nextLine().split(",");
                 for (int index = 0; index < brokenString.length; index++)
                 {
                     if (brokenString[index].equals(input))
@@ -100,8 +100,14 @@ public class WeekendAssignment2Runner
             try {
                 File testFile = new File("src/com/tiy/practice/" + name + "accounts.txt");//read my source code noobs.txt to read the actually written file
                 Scanner fileScanner = new Scanner(testFile);
-                String[] brokenString = input.split(",");
-                for (int index = 0; index < brokenString.length; index++)
+                String acctName;
+                double acctBalance;
+                int acctType;
+                LocalDateTime creationDate;
+                LocalDateTime lastTransDate;
+
+                //String[] brokenString = input.split(",");
+                /*for (int index = 0; index < brokenString.length; index++)
                 {
                     if (brokenString[index].equals(input))
                     {
@@ -112,6 +118,15 @@ public class WeekendAssignment2Runner
                     {
                         returningCustomer = false;
                     }
+                }*/
+
+                while(fileScanner.hasNext())
+                {
+                    acctName = fileScanner.nextLine();
+                    acctBalance = Double.valueOf(fileScanner.nextLine());
+                    acctType = Integer.valueOf(fileScanner.nextLine());
+                    //creationDate = fileScanner.nextLine().;
+
                 }
             }catch(Exception e)
             {
@@ -122,8 +137,10 @@ public class WeekendAssignment2Runner
 
         public void addAccount(Scanner bankScanner)
         {
+            System.out.println("Please enter the name of the account:");
+            String acctName = bankScanner.nextLine();
             System.out.println("Please enter the correct number for the account type:\n1. Checking account\n2. Savings account\n3. Retirement account");
-            int accountSelection = bankScanner.nextInt();
+            int accountSelection = Integer.valueOf(bankScanner.nextLine());
             if(accountSelection == 1)
             {
 
