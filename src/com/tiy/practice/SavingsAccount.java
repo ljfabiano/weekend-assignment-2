@@ -17,7 +17,12 @@ public class SavingsAccount extends CheckingAccount
     {
 
     }
+    public SavingsAccount(String name, double balance)
+    {
+        super(name, balance);
+        //this.initialTime = initialTime;
 
+    }
     public SavingsAccount(LocalDateTime createdDate, String name, double balance, LocalTime initialTime)
     {
         super(createdDate, name, balance);

@@ -4,6 +4,8 @@ import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 /**
  * Created by jfabiano on 8/15/2016.
@@ -25,14 +27,15 @@ public class WeekendAssignment2Runner
         //If there is already a "bank file" for this user, retrieve their account information and display it to them
         WeekendAssignment2Runner myRunner = new WeekendAssignment2Runner();
         returningCustomer = myRunner.isCustomerReturning(nameInput);
+        //Customer customer = new Customer();
         if (returningCustomer == true)
         {
-            myRunner.retrieveUserAccounts();
+            myRunner.retrieveUserAccounts(nameInput, myBank);
         }
         else
         {
             System.out.println("you don't have an account with us yet. Please create an initial account:");
-            myRunner.addAccount(bankScanner);
+            myRunner.addNewAccount(bankScanner);
         }
 
     }
@@ -94,18 +97,19 @@ public class WeekendAssignment2Runner
             return returningCustomer;
         }
 
-        public void retrieveUserAccounts(String name)
+        public void retrieveUserAccounts(String customerName, Bank myBank)
         {
             boolean returningCustomer = false;
             try {
-                File testFile = new File("src/com/tiy/practice/" + name + "accounts.txt");//read my source code noobs.txt to read the actually written file
+                File testFile = new File("src/com/tiy/practice/" + customerName + "accounts.txt");//read my source code noobs.txt to read the actually written file
                 Scanner fileScanner = new Scanner(testFile);
                 String acctName;
                 double acctBalance;
                 int acctType;
                 LocalDateTime creationDate;
                 LocalDateTime lastTransDate;
-
+                int counter = 0;
+                HashMap<String, Customer> custList;
                 //String[] brokenString = input.split(",");
                 /*for (int index = 0; index < brokenString.length; index++)
                 {
@@ -126,6 +130,11 @@ public class WeekendAssignment2Runner
                     acctBalance = Double.valueOf(fileScanner.nextLine());
                     acctType = Integer.valueOf(fileScanner.nextLine());
                     //creationDate = fileScanner.nextLine().;
+                    myBank.addCustomer(customerName);
+                    //add the customer to the customer array list in the bank class
+                    //add an account to the customer account array list(in that initialize the account as well if this can be done in one step)
+                    custList = myBank.getCustomerList();
+                    custList.get(customerName).addBankAccount(acctName, acctBalance, acctType);
 
                 }
             }catch(Exception e)
@@ -135,7 +144,7 @@ public class WeekendAssignment2Runner
             //return returningCustomer;
         }
 
-        public void addAccount(Scanner bankScanner)
+        public void addNewAccount(Scanner bankScanner)
         {
             System.out.println("Please enter the name of the account:");
             String acctName = bankScanner.nextLine();

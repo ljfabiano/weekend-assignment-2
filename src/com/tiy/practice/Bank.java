@@ -15,9 +15,9 @@ import java.time.format.FormatStyle;
 public class Bank
 {
     private String name;
-    //HashMap<String, BankAccount> bankAccounts;// = new HashMap<String, Account>();
+    private HashMap<String, Customer> customerList = new HashMap<String, Customer>();
     //public ArrayList<CheckingAccount> bankAccounts = new ArrayList<CheckingAccount>();
-    private ArrayList<Customer> customerList = new ArrayList<Customer>();
+    //private ArrayList<Customer> customerList = new ArrayList<Customer>();
 
     public Bank()
     {
@@ -30,12 +30,22 @@ public class Bank
 
     }
 
-    //public void addBankAccount(LocalDateTime createdDate, String name, double balance)
+    public void addCustomer(String name)
+    {
+        customerList.put(name, new Customer(name));
 
-    //{
-        //bankAccounts.add(0, new CheckingAccount(createdDate, name, balance));
+    }
 
-    //}
+    public HashMap<String, Customer> getCustomerList()
+    {
+        return customerList;
+    }
+
+    public void setCustomerList(HashMap<String, Customer> customerList)
+    {
+        this.customerList = customerList;
+    }
+
     public String printInfo()
     {
 

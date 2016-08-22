@@ -18,7 +18,12 @@ public class RetirementAccount extends CheckingAccount
     {
 
     }
+    public RetirementAccount(String name, double balance)
+    {
+        super(name, balance);
+        //this.initialTime = initialTime;
 
+    }
     public RetirementAccount(LocalDateTime createdDate, String name, double balance, LocalTime initialTime)
     {
         super(createdDate, name, balance);
