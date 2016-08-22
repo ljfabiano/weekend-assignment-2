@@ -17,6 +17,7 @@ public class WeekendAssignment2Runner
         String bankName = "myBank";
         Bank myBank = new Bank(bankName);
         Scanner bankScanner = new Scanner(System.in);
+        int selection;
         //Scanner fileScanner = new Scanner(testFile);
         String nameInput;
         boolean returningCustomer;
@@ -38,40 +39,25 @@ public class WeekendAssignment2Runner
             System.out.println("you don't have an account with us yet. Please create an initial account:");
             myRunner.addNewAccount(nameInput, myBank, bankScanner);
         }
-
-        System.out.println("what would you like to do next?\n1. Deposit money to your account\n2. Withdraw money from your account\n3. Print your account information\n4. Print your bank information\n0. Exit");
+        //call account selection method
+        //int selection;
         do
         {
-            intInput = Integer.valueOf(bankScanner.nextLine());
-            if (intInput == 1)
-            {
+            selection = myRunner.accountSelection(nameInput, myBank, bankScanner);
 
-                System.out.println("Please enter the dollar amount you want to deposit to your bank account:");
-                dInput = Double.valueOf(bankScanner.nextLine());
+                if (selection == -1)
+                {
+                    myRunner.addNewAccount(nameInput, myBank, bankScanner);
+                }
+                else
+                {
+                    myRunner.accountInteraction(nameInput, myBank, bankScanner, selection);
+                }
+        }
+        while(selection != 0);
 
-                myBank.bankAccounts.get(0).deposit(dInput);
-            }
-            else if (intInput == 2)
-            {
+        //call account interaction method
 
-                System.out.println("Please enter the dollar amount you want to withdraw from your bank account:");
-                dInput = Double.valueOf(bankScanner.nextLine());
-                myBank.bankAccounts.get(0).withdraw(dInput);
-            }
-            else if (intInput == 3)
-            {
-
-                String account = myBank.bankAccounts.get(0).printInfo();
-                System.out.println(account);
-
-            }
-            else if (intInput == 4)
-            {
-
-                String bankAccount = myBank.printInfo();
-                System.out.println(bankAccount);
-            }
-        }while(intInput != 0);
         System.out.println("Thanks for visiting the bank. Have a good day!");
 
     }
@@ -177,6 +163,77 @@ public class WeekendAssignment2Runner
             custList.get(customerName).addBankAccount(acctName, startBalance, accountSelection);
 
             System.out.println("The account has been created.");
+        }
+        public void accountInteraction(String customerName, Bank myBank, Scanner bankScanner, int accountSelect)
+        {
+            HashMap<String, Customer> custList = myBank.getCustomerList();
+            ArrayList<CheckingAccount> accountList = custList.get(customerName).getBankAccounts();
+            int intInput;
+            int count = 1;
+            int selection;
+            System.out.println("what would you like to do next?\n1. Deposit money to your account\n2. Withdraw money from your account\n3. Print your account information\n4. Transfer money to another account\n0. Exit");
+            do
+            {
+                intInput = Integer.valueOf(bankScanner.nextLine());
+                double dInput;
+                if (intInput == 1)
+                {
+
+                    System.out.println("Please enter the dollar amount you want to deposit to your bank account:");
+                    dInput = Double.valueOf(bankScanner.nextLine());
+                    accountList.get(accountSelect).deposit(dInput);
+                    //myBank.bankAccounts.get(0).deposit(dInput);
+                }
+                else if (intInput == 2)
+                {
+
+                    System.out.println("Please enter the dollar amount you want to withdraw from your bank account:");
+                    dInput = Double.valueOf(bankScanner.nextLine());
+                    accountList.get(accountSelect).withdraw(dInput);
+                    //myBank.bankAccounts.get(0).withdraw(dInput);
+                }
+                else if (intInput == 3)
+                {
+
+                    String account = accountList.get(accountSelect).printInfo();
+                    System.out.println(account);
+
+                }
+                else if (intInput == 4)
+                {
+
+                    System.out.println("Which account do you want to transfer money to:");
+                    for(CheckingAccount currentAccount : accountList)
+                    {
+                        System.out.println(count + ". " + currentAccount.getName());
+                        count++;
+                    }
+                    selection = Integer.valueOf(bankScanner.nextLine());
+                    System.out.println("Please enter the dollar amount you want to transfer:");
+                    dInput = Double.valueOf(bankScanner.nextLine());
+                    accountList.get(accountSelect).withdraw(dInput);
+                    accountList.get(selection).deposit(dInput);
+
+                }
+            }while(intInput != 0);
+        }
+        public int accountSelection(String customerName, Bank myBank, Scanner bankScanner)
+        {
+            HashMap<String, Customer> custList = myBank.getCustomerList();
+            ArrayList<CheckingAccount> accountList = custList.get(customerName).getBankAccounts();
+            int selection;
+            int count = 1;
+            System.out.println("Please enter the appropriate account number to interact with one of your accounts:");
+            System.out.println("-1 Exit");
+            System.out.println("0. Create a new account");
+            for(CheckingAccount currentAccount : accountList)
+            {
+                System.out.println(count + ". " + currentAccount.getName());
+                count++;
+            }
+            selection = Integer.valueOf(bankScanner.nextLine());
+            return selection;
+
         }
 
         //If this is a new user, ask them to create their first account

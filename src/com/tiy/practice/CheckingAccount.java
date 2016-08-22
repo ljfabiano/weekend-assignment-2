@@ -56,5 +56,11 @@ public class CheckingAccount
         lastTransactionDate = now;
     }
 
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 }
