@@ -46,21 +46,21 @@ public class Bank
         this.customerList = customerList;
     }
 
-    public String printInfo()
+    public String printInfo(String customerName)
     {
 
-        String printSummary = "Bank Account summary\nBank Name: " + name + "\nTotal Deposits: $" + getTotalInDeposits();
+        String printSummary = "Bank Account summary\nBank Name: " + name + "\nTotal Deposits: $" + getTotalInDeposits(customerName);
         return printSummary;
     }
-    public double getTotalInDeposits()
+    public double getTotalInDeposits(String customerName)
     {
         double totalMoney = 0.0;
 
         for(int custIndex = 0; custIndex < customerList.size(); custIndex++)
         {
-            for(int accountIndex = 0; accountIndex < customerList.get(custIndex).getBankAccounts().size(); accountIndex++)
+            for(int accountIndex = 0; accountIndex < customerList.get(customerName).getBankAccounts().size(); accountIndex++)
             {
-                totalMoney += customerList.get(custIndex).getBankAccounts().get(accountIndex).getBalance();
+                totalMoney += customerList.get(customerName).getBankAccounts().get(accountIndex).getBalance();//.getBankAccounts().get(accountIndex).getBalance();
             }
         }
         return totalMoney;

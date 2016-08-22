@@ -177,9 +177,11 @@ public class WeekendAssignment2Runner
             int intInput;
             int count = 1;
             int selection;
-            System.out.println("what would you like to do next?\n1. Deposit money to your account\n2. Withdraw money from your account\n3. Print your account information\n4. Transfer money to another account\n0. Exit");
+            //System.out.println("what would you like to do next?\n1. Deposit money to your account\n2. Withdraw money from your account\n3. Print your account information\n4. Transfer money to another account\n0. Exit");
             do
             {
+                System.out.println("What would you like to do next?\n1. Deposit money to your account\n2. Withdraw money from your account\n3. Print your account information\n4. Transfer money to another account\n0. Exit");
+
                 intInput = Integer.valueOf(bankScanner.nextLine());
                 double dInput;
                 if (intInput == 1)
@@ -203,6 +205,7 @@ public class WeekendAssignment2Runner
 
                     String account = accountList.get(accountSelect).printInfo();
                     System.out.println(account);
+                    System.out.println(myBank.printInfo(customerName));
 
                 }
                 else if (intInput == 4)
