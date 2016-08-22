@@ -49,7 +49,7 @@ public class Customer
     }
     public void addBankAccount(String name, double balance, int acctType)
     {
-    bankAccounts.add(new CheckingAccount(name, balance));
+    //bankAccounts.add(new CheckingAccount(name, balance));
         if(acctType == 1)
         {
             bankAccounts.add(new CheckingAccount(name, balance));

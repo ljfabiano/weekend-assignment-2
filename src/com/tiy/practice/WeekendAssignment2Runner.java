@@ -37,7 +37,9 @@ public class WeekendAssignment2Runner
         else
         {
             System.out.println("you don't have an account with us yet. Please create an initial account:");
+            myBank.addCustomer(nameInput);
             myRunner.addNewAccount(nameInput, myBank, bankScanner);
+            //myBank.addCustomer(nameInput);
         }
         //call account selection method
         //int selection;
@@ -49,9 +51,13 @@ public class WeekendAssignment2Runner
                 {
                     myRunner.addNewAccount(nameInput, myBank, bankScanner);
                 }
+                else if (selection == 0)
+                {
+                    break;
+                }
                 else
                 {
-                    myRunner.accountInteraction(nameInput, myBank, bankScanner, selection);
+                    myRunner.accountInteraction(nameInput, myBank, bankScanner, (selection - 1));
                 }
         }
         while(selection != 0);
@@ -114,7 +120,7 @@ public class WeekendAssignment2Runner
                 //System.out.println("you have " + numLines + " in your file.");
             }catch(Exception e)
             {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
             return returningCustomer;
         }
@@ -158,7 +164,7 @@ public class WeekendAssignment2Runner
             System.out.println("please enter the starting balance for the account:");
             double startBalance = Double.valueOf(bankScanner.nextLine());
             HashMap<String, Customer> custList;
-            myBank.addCustomer(customerName);
+            //myBank.addCustomer(customerName);
             custList = myBank.getCustomerList();
             custList.get(customerName).addBankAccount(acctName, startBalance, accountSelection);
 
@@ -212,8 +218,12 @@ public class WeekendAssignment2Runner
                     System.out.println("Please enter the dollar amount you want to transfer:");
                     dInput = Double.valueOf(bankScanner.nextLine());
                     accountList.get(accountSelect).withdraw(dInput);
-                    accountList.get(selection).deposit(dInput);
+                    accountList.get(selection - 1).deposit(dInput);
 
+                }
+                else
+                {
+                    break;
                 }
             }while(intInput != 0);
         }
@@ -224,8 +234,8 @@ public class WeekendAssignment2Runner
             int selection;
             int count = 1;
             System.out.println("Please enter the appropriate account number to interact with one of your accounts:");
-            System.out.println("-1 Exit");
-            System.out.println("0. Create a new account");
+            System.out.println("-1 Create a new account");
+            System.out.println("0. Exit");
             for(CheckingAccount currentAccount : accountList)
             {
                 System.out.println(count + ". " + currentAccount.getName());
