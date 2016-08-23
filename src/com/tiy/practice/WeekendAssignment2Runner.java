@@ -16,6 +16,14 @@ public class WeekendAssignment2Runner
         System.out.println("Welcome to My Bank!");
         String bankName = "myBank";
         Bank myBank = new Bank(bankName);
+        myBank.retrieveCustomers();
+        HashMap<String, Customer> customerArray = myBank.getCustomerList();
+        //customerArray.get(nameInput).saveAccounts();
+        System.out.println("Customers in the file: " + myBank.getCustomerList());
+        for (Customer currentCustomer : myBank.getCustomerList().values())
+        {
+            System.out.println("stuff in the file: " + currentCustomer.getCustomerName());
+        }
         Scanner bankScanner = new Scanner(System.in);
         int selection;
         //Scanner fileScanner = new Scanner(testFile);
@@ -33,6 +41,7 @@ public class WeekendAssignment2Runner
         if (returningCustomer == true)
         {
             myRunner.retrieveUserAccounts(nameInput, myBank);
+            //customerArray.get(nameInput).retrieveAccounts();
         }
         else
         {
@@ -63,7 +72,8 @@ public class WeekendAssignment2Runner
         while(selection != 0);
 
         //call account interaction method
-
+        myBank.saveCustomers();
+        customerArray.get(nameInput).saveAccounts();
         System.out.println("Thanks for visiting the bank. Have a good day!");
 
     }
@@ -125,11 +135,13 @@ public class WeekendAssignment2Runner
             return returningCustomer;
         }
 
+
+
         public void retrieveUserAccounts(String customerName, Bank myBank)
         {
             //boolean returningCustomer = false;
             try {
-                File testFile = new File("src/com/tiy/practice/" + customerName + "accounts.txt");//read my source code noobs.txt to read the actually written file
+                File testFile = new File("src/com/tiy/practice/" + customerName + "Accounts.txt");//read my source code noobs.txt to read the actually written file
                 Scanner fileScanner = new Scanner(testFile);
                 String acctName;
                 double acctBalance;
@@ -249,6 +261,8 @@ public class WeekendAssignment2Runner
 
         }
 
+
+
         //If this is a new user, ask them to create their first account
 
         //When you ask a user to create an account, give them 3 choices for the type of account they're creating: checking, savings, retirement (Note: a user may have more than one account of one type)
@@ -260,53 +274,6 @@ public class WeekendAssignment2Runner
         //Always allow the user to exit out of the "use account" menu and back to the "select account" menu
 
         //The "select account" menu should also have an option to create a new account
-
-
-/*
-        System.out.println("Please enter the name of the bank account you want to create:");
-        input = bankScanner.nextLine();
-        System.out.println("Please enter the starting account balance of the bank account:");
-        double dInput = Double.valueOf(bankScanner.nextLine());
-        LocalDateTime now = LocalDateTime.now();
-
-        myBank.addBankAccount(now, input, dInput);
-
-        System.out.println("The account has been created.");
-        System.out.println("what would you like to do next?\n1. Deposit money to your account\n2. Withdraw money from your account\n3. Print your account information\n4. Print your bank information\n0. Exit");
-        do
-        {
-            intInput = Integer.valueOf(bankScanner.nextLine());
-            if (intInput == 1)
-            {
-
-                System.out.println("Please enter the dollar amount you want to deposit to your bank account:");
-                dInput = Double.valueOf(bankScanner.nextLine());
-
-                myBank.bankAccounts.get(0).deposit(dInput);
-            }
-            else if (intInput == 2)
-            {
-
-                System.out.println("Please enter the dollar amount you want to withdraw from your bank account:");
-                dInput = Double.valueOf(bankScanner.nextLine());
-                myBank.bankAccounts.get(0).withdraw(dInput);
-            }
-            else if (intInput == 3)
-            {
-
-                String account = myBank.bankAccounts.get(0).printInfo();
-                System.out.println(account);
-
-            }
-            else if (intInput == 4)
-            {
-
-                String bankAccount = myBank.printInfo();
-                System.out.println(bankAccount);
-            }
-        }while(intInput != 0);
-        System.out.println("Thanks for visiting the bank. Have a good day!");
-    */
     }
 
 
