@@ -1,9 +1,6 @@
 package com.tiy.practice;
 
 import java.io.File;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -12,29 +9,25 @@ import java.util.Scanner;
  */
 public class WeekendAssignment2Runner
 {
+    public static boolean runThreads = true;
     public static void main(String[] args) {
         System.out.println("Welcome to My Bank!");
         String bankName = "myBank";
         Bank myBank = new Bank(bankName);
         myBank.retrieveCustomers();
         HashMap<String, Customer> customerArray = myBank.getCustomerList();
-        //customerArray.get(nameInput).saveAccounts();
-        System.out.println("Customers in the file: " + myBank.getCustomerList());
-
+        //System.out.println("Customers in the file: " + myBank.getCustomerList());
         Scanner bankScanner = new Scanner(System.in);
         int selection;
-        //Scanner fileScanner = new Scanner(testFile);
         String nameInput;
         boolean returningCustomer;
         int intInput;
-
         System.out.println("Please enter your first name:");
         nameInput = bankScanner.nextLine();
 
         //If there is already a "bank file" for this user, retrieve their account information and display it to them
         WeekendAssignment2Runner myRunner = new WeekendAssignment2Runner();
         returningCustomer = myRunner.isCustomerReturning(nameInput);
-        //Customer customer = new Customer();
         for (Customer currentCustomer : myBank.getCustomerList().values())
         {
             System.out.println("stuff in the file: " + currentCustomer.getCustomerName());
@@ -42,22 +35,12 @@ public class WeekendAssignment2Runner
         }
         if (returningCustomer == false)
         {
-            //myRunner.retrieveUserAccounts(nameInput, myBank);
-            //customerArray.get(nameInput).retrieveAccounts();
+
             System.out.println("you don't have an account with us yet. Please create an initial account:");
             myBank.addCustomer(nameInput);
             myRunner.addNewAccount(nameInput, myBank, bankScanner);
         }
-        //else
-        //{
-            //System.out.println("you don't have an account with us yet. Please create an initial account:");
-            //myBank.addCustomer(nameInput);
-            //myRunner.addNewAccount(nameInput, myBank, bankScanner);
-            //myRunner.retrieveUserAccounts(nameInput, myBank);
-            //myBank.addCustomer(nameInput);
-        //}
-        //call account selection method
-        //int selection;
+
         do
         {
             selection = myRunner.accountSelection(nameInput, myBank, bankScanner);
@@ -78,8 +61,10 @@ public class WeekendAssignment2Runner
         while(selection != 0);
 
         //call account interaction method
+        runThreads = false;
         myBank.saveCustomers();
         customerArray.get(nameInput).saveAccounts();
+
         System.out.println("Thanks for visiting the bank. Have a good day!");
 
     }
@@ -88,7 +73,7 @@ public class WeekendAssignment2Runner
         {
             boolean returningCustomer = false;
             try {
-                File testFile = new File("src/com/tiy/practice/bank.txt");//read my source code noobs.txt to read the actually written file
+                File testFile = new File("src/com/tiy/practice/bank.txt");
                 Scanner fileScanner = new Scanner(testFile);
                 String[] brokenString = fileScanner.nextLine().split(",");
                 for (int index = 0; index < brokenString.length; index++)
@@ -103,58 +88,23 @@ public class WeekendAssignment2Runner
                         returningCustomer = false;
                     }
                 }
-                //return returningCustomer;
-                /*
 
-                 String[] brokenString = input.split(",");
-            for (int index = 0; index < brokenString.length; index++)
-            {
-                if (index == 0)
-                {
-                    correctedInput += brokenString[index].toLowerCase();
-                }
-                else
-                {
-                    correctedInput += brokenString[index].substring(firstLetter, secondLetter).toUpperCase();
-                    correctedInput += brokenString[index].substring(secondLetter).toLowerCase();
-                }
-            }
-
-                 */
-                //while(fileScanner.hasNext())
-                //{
-                    //String currentLine = fileScanner.nextLine();
-                    //numLines++;
-                    //numChars += currentLine.length();
-                    //System.out.println(currentLine);
-                    //int intIndex = currentLine.indexOf("int");
-                    //if(intIndex  != -1)
-                    //{
-                    //    numInts++;
-                    //}
-                //}
-                //System.out.println("you have " + numLines + " in your file.");
             }catch(Exception e)
             {
-                //e.printStackTrace();
+                e.printStackTrace();
             }
             return returningCustomer;
         }
 
-
-
         public void retrieveUserAccounts(String customerName, Bank myBank)
         {
-            //boolean returningCustomer = false;
+
             try {
                 File testFile = new File("src/com/tiy/practice/" + customerName + "Accounts.txt");//read my source code noobs.txt to read the actually written file
                 Scanner fileScanner = new Scanner(testFile);
                 String acctName;
                 double acctBalance;
                 int acctType;
-                //LocalDateTime creationDate;
-                //LocalDateTime lastTransDate;
-                //int counter = 0;
                 HashMap<String, Customer> custList;
 
                 while(fileScanner.hasNext())
@@ -162,7 +112,7 @@ public class WeekendAssignment2Runner
                     acctName = fileScanner.nextLine();
                     acctBalance = Double.valueOf(fileScanner.nextLine());
                     acctType = Integer.valueOf(fileScanner.nextLine());
-                    //myBank.addCustomer(customerName);
+
                     custList = myBank.getCustomerList();
                     custList.get(customerName).addBankAccount(acctName, acctBalance, acctType);
                 }
@@ -170,7 +120,7 @@ public class WeekendAssignment2Runner
             {
                 e.printStackTrace();
             }
-            //return returningCustomer;
+
         }
 
         public void addNewAccount(String customerName, Bank myBank, Scanner bankScanner)
@@ -182,7 +132,7 @@ public class WeekendAssignment2Runner
             System.out.println("please enter the starting balance for the account:");
             double startBalance = Double.valueOf(bankScanner.nextLine());
             HashMap<String, Customer> custList;
-            //myBank.addCustomer(customerName);
+
             custList = myBank.getCustomerList();
             custList.get(customerName).addBankAccount(acctName, startBalance, accountSelection);
 
@@ -195,7 +145,6 @@ public class WeekendAssignment2Runner
             int intInput;
             int count = 1;
             int selection;
-            //System.out.println("what would you like to do next?\n1. Deposit money to your account\n2. Withdraw money from your account\n3. Print your account information\n4. Transfer money to another account\n0. Exit");
             do
             {
                 System.out.println("What would you like to do next?\n1. Deposit money to your account\n2. Withdraw money from your account\n3. Print your account information\n4. Transfer money to another account\n0. Exit");
@@ -208,7 +157,7 @@ public class WeekendAssignment2Runner
                     System.out.println("Please enter the dollar amount you want to deposit to your bank account:");
                     dInput = Double.valueOf(bankScanner.nextLine());
                     accountList.get(accountSelect).deposit(dInput);
-                    //myBank.bankAccounts.get(0).deposit(dInput);
+
                 }
                 else if (intInput == 2)
                 {
@@ -216,7 +165,7 @@ public class WeekendAssignment2Runner
                     System.out.println("Please enter the dollar amount you want to withdraw from your bank account:");
                     dInput = Double.valueOf(bankScanner.nextLine());
                     accountList.get(accountSelect).withdraw(dInput);
-                    //myBank.bankAccounts.get(0).withdraw(dInput);
+
                 }
                 else if (intInput == 3)
                 {
@@ -240,7 +189,6 @@ public class WeekendAssignment2Runner
                     dInput = Double.valueOf(bankScanner.nextLine());
                     accountList.get(accountSelect).withdraw(dInput);
                     accountList.get(selection - 1).deposit(dInput);
-
                 }
                 else
                 {
@@ -267,19 +215,6 @@ public class WeekendAssignment2Runner
 
         }
 
-
-
-        //If this is a new user, ask them to create their first account
-
-        //When you ask a user to create an account, give them 3 choices for the type of account they're creating: checking, savings, retirement (Note: a user may have more than one account of one type)
-
-        //Let the user choose what account to use
-
-        //For each account, let the user withdraw, deposit and transfer money
-
-        //Always allow the user to exit out of the "use account" menu and back to the "select account" menu
-
-        //The "select account" menu should also have an option to create a new account
     }
 
 
