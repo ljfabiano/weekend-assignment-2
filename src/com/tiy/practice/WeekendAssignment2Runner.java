@@ -20,10 +20,7 @@ public class WeekendAssignment2Runner
         HashMap<String, Customer> customerArray = myBank.getCustomerList();
         //customerArray.get(nameInput).saveAccounts();
         System.out.println("Customers in the file: " + myBank.getCustomerList());
-        for (Customer currentCustomer : myBank.getCustomerList().values())
-        {
-            System.out.println("stuff in the file: " + currentCustomer.getCustomerName());
-        }
+
         Scanner bankScanner = new Scanner(System.in);
         int selection;
         //Scanner fileScanner = new Scanner(testFile);
@@ -38,18 +35,27 @@ public class WeekendAssignment2Runner
         WeekendAssignment2Runner myRunner = new WeekendAssignment2Runner();
         returningCustomer = myRunner.isCustomerReturning(nameInput);
         //Customer customer = new Customer();
-        if (returningCustomer == true)
+        for (Customer currentCustomer : myBank.getCustomerList().values())
         {
-            myRunner.retrieveUserAccounts(nameInput, myBank);
-            //customerArray.get(nameInput).retrieveAccounts();
+            System.out.println("stuff in the file: " + currentCustomer.getCustomerName());
+            myRunner.retrieveUserAccounts(currentCustomer.getCustomerName(), myBank);
         }
-        else
+        if (returningCustomer == false)
         {
+            //myRunner.retrieveUserAccounts(nameInput, myBank);
+            //customerArray.get(nameInput).retrieveAccounts();
             System.out.println("you don't have an account with us yet. Please create an initial account:");
             myBank.addCustomer(nameInput);
             myRunner.addNewAccount(nameInput, myBank, bankScanner);
-            //myBank.addCustomer(nameInput);
         }
+        //else
+        //{
+            //System.out.println("you don't have an account with us yet. Please create an initial account:");
+            //myBank.addCustomer(nameInput);
+            //myRunner.addNewAccount(nameInput, myBank, bankScanner);
+            //myRunner.retrieveUserAccounts(nameInput, myBank);
+            //myBank.addCustomer(nameInput);
+        //}
         //call account selection method
         //int selection;
         do
@@ -156,7 +162,7 @@ public class WeekendAssignment2Runner
                     acctName = fileScanner.nextLine();
                     acctBalance = Double.valueOf(fileScanner.nextLine());
                     acctType = Integer.valueOf(fileScanner.nextLine());
-                    myBank.addCustomer(customerName);
+                    //myBank.addCustomer(customerName);
                     custList = myBank.getCustomerList();
                     custList.get(customerName).addBankAccount(acctName, acctBalance, acctType);
                 }

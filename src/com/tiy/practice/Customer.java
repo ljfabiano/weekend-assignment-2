@@ -59,7 +59,18 @@ public class Customer
             {
                 accountWriter.write(currentAccount.getName() + "\n");
                 accountWriter.write(currentAccount.getBalance() + "\n");
-                accountWriter.write(1 + "\n");
+                if(currentAccount.getClass() == SavingsAccount.class)
+                {
+                    accountWriter.write(2 + "\n");
+                }
+                else if(currentAccount.getClass() == RetirementAccount.class)
+                {
+                    accountWriter.write(3 + "\n");
+                }
+                else
+                {
+                    accountWriter.write(1 + "\n");
+                }
             }
             //bankWriter.write(customerList.name + "\n");
             //bankWriter.write(this.getTotalMoneyAtTheBank() + "\n");

@@ -116,20 +116,40 @@ public class Bank
     public String printInfo(String customerName)
     {
 
-        String printSummary = "Bank Account summary\nBank Name: " + name + "\nTotal Deposits: $" + getTotalInDeposits(customerName);
+        String printSummary = "Bank Account summary\nBank Name: " + name + "\nTotal Deposits: $" + getTotalInDeposits();
         return printSummary;
     }
-    public double getTotalInDeposits(String customerName)
+    public double getTotalInDeposits()
     {
         double totalMoney = 0.0;
+        //String cutString = customerList.keySet();
+        //Set<String> sArray =  customerList.keySet();
+        //for (Customer currentCustomer : customerList.values())
+        //{
+        //    for (CheckingAccount currentAccount : customerList.get(customerName).getBankAccounts())
+        //    {
+        //        totalMoney += customerList.get(customerName).getBankAccounts().get(accountIndex).getBalance();
+        //    }
 
-        for(int custIndex = 0; custIndex < customerList.size(); custIndex++)
+        //}
+
+
+        for (Customer customer : customerList.values()) {
+            for (CheckingAccount account : customer.getBankAccounts()) {
+                totalMoney += account.getBalance();
+            }
+        }
+
+
+        /*for(int custIndex = 0; custIndex < customerList.size(); custIndex++)
         {
+            Customer currentCustomer = customerList.values().get(custIndex);
             for(int accountIndex = 0; accountIndex < customerList.get(customerName).getBankAccounts().size(); accountIndex++)
             {
                 totalMoney += customerList.get(customerName).getBankAccounts().get(accountIndex).getBalance();//.getBankAccounts().get(accountIndex).getBalance();
             }
-        }
+
+        }*/
         return totalMoney;
     }
 }
